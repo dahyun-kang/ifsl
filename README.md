@@ -14,6 +14,10 @@
 </div>
 <br />
 
+<div align="center">
+  <img src="fs-cs/data/assets/teaser.png" alt="result" width="600"/>
+</div>
+
 This repo is the official implementation of the CVPR 2022 paper: [Integrative Few-Shot Learning for Classification and Segmentation](https://arxiv.org/abs/2203.15712).
 
 
