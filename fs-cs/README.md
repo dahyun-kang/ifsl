@@ -215,4 +215,4 @@ python main.py --datapath YOUR_DATA_DIR \
 ## :framed_picture: Qualitative examples of the predicted segmentaiton masks
 To visualize segmentation prediction of a saved model, use `--eval --vis` options
 <br> <br>
-<img src="data/segpred.png" alt="result" width="600"/>
+<img src="data/assets/segpred.png" alt="result" width="600"/>
