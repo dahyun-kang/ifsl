@@ -48,8 +48,8 @@ The package requirements can be installed via `environment.yml`, which includes
 * [`pytorch-lightning`](https://www.pytorchlightning.ai/)==1.3.8
 * [`einops`](https://einops.rocks/pytorch-examples.html)==0.3.0
 ```bash
-conda env create --name ifsl_pytorch1.8.1 --file environment.yml
-conda activate ifsl_pytorch1.8.1
+conda env create --name ifsl_pytorch1.7.0 --file environment.yml
+conda activate ifsl_pytorch1.7.0
 ```
 Make sure you need to replace _YOURMACHINE_ in the installation path with your own conda path.
 
