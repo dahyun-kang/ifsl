@@ -1,4 +1,4 @@
-name: ifsl_pytorch1.8.1
+name: ifsl_pytorch1.7.0
 channels:
   - huggingface
   - pytorch
@@ -215,5 +215,5 @@ dependencies:
     - werkzeug==2.0.1
     - yapf==0.31.0
     - yarl==1.6.3
-prefix: /home/YOURMACHINE/anaconda3/envs/ifsl_pytorch1.8.1
+prefix: YOURCONDAROOTDIR/anaconda3/envs/ifsl_pytorch1.7.0
 

@@ -51,7 +51,7 @@ The package requirements can be installed via `environment.yml`, which includes
 conda env create --name ifsl_pytorch1.7.0 --file environment.yml
 conda activate ifsl_pytorch1.7.0
 ```
-Make sure you need to replace _YOURMACHINE_ in the installation path with your own conda path.
+Make sure you need to replace _YOURCONDAROOTDIR_ in the installation path with your own root dir
 
 ## :books: Datasets
 * [PASCAL VOC 2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) and [SBD](http://home.bharathh.info/pubs/codes/SBD/download.html)
