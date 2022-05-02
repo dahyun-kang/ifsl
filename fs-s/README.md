@@ -33,6 +33,7 @@ python main.py --datapath YOUR_DATA_DIR \
                --fold {0, 1, 2, 3} \
                --backbone {resnet50, resnet101}
 ```
+Training ASNet on Pascal-5<sup>i</sup> takes 3 days to converge with 2 TitanXPs, and 6 days for COCO-20<sup>i</sup> with 4 TitanXPs and a double size of batch.
 
 ## :pushpin: Quick start: Evaluating authors' checkpoints
 
