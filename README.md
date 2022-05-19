@@ -57,6 +57,21 @@ Make sure you need to replace _YOURCONDAROOTDIR_ in the installation path with y
 * [PASCAL VOC 2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) and [SBD](http://home.bharathh.info/pubs/codes/SBD/download.html)
 * [Microsoft COCO 2014](https://cocodataset.org/#download)
 
+Download the datasets by following the file structure below and set `args.datapath=YOUR_DATASET_DIR`:
+
+```
+    YOUR_DATASET_DIR/
+    ├── VOC2012/
+    │   ├── Annotations/
+    │   ├── JPEGImages/
+    │   ├── ...
+    ├── COCO2014/
+    │   ├── annotations/
+    │   ├── train2014/
+    │   ├── val2014/
+    │   ├── ...
+    ├── ...
+```
 
 We follow the dataset protocol of [HSNet](https://github.com/juhongm999/hsnet) and [PFENet](https://github.com/dvlab-research/PFENet).
 

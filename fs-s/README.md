@@ -25,7 +25,7 @@ The file structure should be as follows:
 
 ## :fire: Training a model
 ```bash
-python main.py --datapath YOUR_DATA_DIR \
+python main.py --datapath YOUR_DATASET_DIR \
                --benchmark {pascal, coco} \
                --logpath YOUR_DIR_TO_SAVE_CKPT \
                --way 1 \
@@ -38,7 +38,7 @@ Training ASNet on Pascal-5<sup>i</sup> takes 3 days to converge with 2 TitanXPs,
 ## :pushpin: Quick start: Evaluating authors' checkpoints
 
 ```bash
-python main.py --datapath YOUR_DATA_DIR \
+python main.py --datapath YOUR_DATASET_DIR \
                --benchmark {pascal, coco} \
                --logpath asnet \
                --shot {1, 5} \
@@ -49,7 +49,7 @@ python main.py --datapath YOUR_DATA_DIR \
 
 To evaluate the `asnet-pascal-1shot-resnet50-fold0` model, run:
 ```bash
-python main.py --datapath YOUR_DATA_DIR \
+python main.py --datapath YOUR_DATASET_DIR \
                --benchmark pascal \
                --logpath asnet \
                --shot 1 \

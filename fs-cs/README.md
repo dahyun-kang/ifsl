@@ -26,7 +26,7 @@ The file structure should be as follows:
 ## :fire: Training a model
 ### Training with segmentation annotaiton (strong labels)
 ```bash
-python main.py --datapath YOUR_DATA_DIR \
+python main.py --datapath YOUR_DATASET_DIR \
                --method {panet, pfenet, hsnet, asnet} \
                --benchmark {pascal, coco} \
                --logpath YOUR_DIR_TO_SAVE_CKPT \
@@ -44,7 +44,7 @@ Append these two arguments: `--weak --lr 1e-4`.
 ## :pushpin: Quick start: Evaluating authors' checkpoints
 
 ```bash
-python main.py --datapath YOUR_DATA_DIR \
+python main.py --datapath YOUR_DATASET_DIR \
                --method {panet, pfenet, hsnet, asnet} \
                --benchmark {pascal, coco} \
                --logpath {panet, pfenet, hsnet, asnet} \
@@ -58,7 +58,7 @@ python main.py --datapath YOUR_DATA_DIR \
 
 To evaluate the `asnet-pascal-1way-1shot-resnet50-fold0` model, run:
 ```bash
-python main.py --datapath YOUR_DATA_DIR \
+python main.py --datapath YOUR_DATASET_DIR \
                --method asnet \
                --benchmark pascal \
                --logpath asnet \
