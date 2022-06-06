@@ -82,3 +82,8 @@ Our project refers to and heavily borrows some the codes from the following repo
 * [[PANet]](https://github.com/kaixin96/PANet): Wang _et al_.,  Few-shot image semantic segmentation with prototype alignment, ICCV'19.
 * [[PFENet]](https://github.com/dvlab-research/PFENet): Tian _et al_., Prior guided feature enrichment network for few-shot segmentation, TPAMI'20.
 * [[HSNet]](https://github.com/juhongm999/hsnet):  Min _et al_., Hypercorrelation squeeze for few-shot segmentation, ICCV'21.
+
+
+## :bow: Acknowledgements
+This work was supported by Samsung Advanced Institute of Technology (SAIT) and also by Center for Applied Research in Artificial Intelligence (CARAI) grant funded by DAPA and ADD (UD190031RD).
+We also thank [Ahyun Seo](https://github.com/ahyunSeo) and [Deunsol Jung](https://github.com/hesedjds) for their helpful discussion.
