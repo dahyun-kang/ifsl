@@ -19,12 +19,12 @@ class AttentiveSqueezeNetwork(iFSLModule):
         # 1. Backbone network initialization
         self.backbone_type = args.backbone
         if args.backbone == 'resnet50':
-            self.backbone = resnet.resnet50(pretrained=True)
+            self.backbone = resnet.resnet50(weights="IMAGENET1K_V1")
             self.feat_ids = list(range(4, 17))
             self.extract_feats = extract_feat_res
             nbottlenecks = [3, 4, 6, 3]
         elif args.backbone == 'resnet101':
-            self.backbone = resnet.resnet101(pretrained=True)
+            self.backbone = resnet.resnet101(weights="IMAGENET1K_V1")
             self.feat_ids = list(range(4, 34))
             self.extract_feats = extract_feat_res
             nbottlenecks = [3, 4, 23, 3]
