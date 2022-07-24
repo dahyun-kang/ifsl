@@ -2,7 +2,7 @@ import os
 
 from pytorch_lightning.loggers import WandbLogger
 from pytorch_lightning.callbacks import Callback
-from pytorch_lightning.callbacks.progress import ProgressBar, reset, convert_inf
+from pytorch_lightning.callbacks.progress import TQDMProgressBar
 from pytorch_lightning.callbacks.model_checkpoint import ModelCheckpoint
 
 from common.evaluation import AverageMeter
@@ -11,45 +11,30 @@ from common import utils
 from pprint import PrettyPrinter
 
 
-class CustomProgressBar(ProgressBar):
-    """
-    Custom progress bar for seperated training and validation processes
-    """
-    def __init__(self, global_progress: bool = True, leave_global_progress: bool = True):
-        super(CustomProgressBar, self).__init__()
+class CustomTQDMProgressBar(TQDMProgressBar):
+    def __init__(self):
+        super(CustomTQDMProgressBar, self).__init__()
 
-        self.global_progress = global_progress
-        self.leave_global_progress = leave_global_progress
-        self.global_pb = None
+    def on_train_epoch_end(self, trainer, pl_module):
+        super().on_train_epoch_end(trainer, pl_module)
+        print('')
+        for split in ['trn', 'val']:
+            loss = trainer.callback_metrics[f'{split}/loss']
+            miou = trainer.callback_metrics[f'{split}/miou']
+            er   = trainer.callback_metrics[f'{split}/er']
 
-    def on_train_epoch_start(self, trainer, pl_module):
-        total_train_batches = self.total_train_batches
-        total_batches = total_train_batches
-        reset(self.main_progress_bar, total_batches)
-        self.main_progress_bar.set_description(f"[trn] ep: {trainer.current_epoch:>3}")
+            print(f'[{split}] ep: {trainer.current_epoch:>3}| {split}/loss: {loss:.3f} | {split}/miou: {miou:.3f} | {split}/er: {er:.3f}')
 
-    def on_validation_start(self, trainer, pl_module):
-        if trainer.sanity_checking:
-            reset(self.val_progress_bar, sum(trainer.num_sanity_val_batches))
-        else:
-            self.val_progress_bar = self.init_validation_tqdm()
-            self.val_progress_bar.set_description(f"[val] ep: {trainer.current_epoch:>3}")
-            reset(self.val_progress_bar, self.total_val_batches)
-
-    def on_validation_end(self, trainer, pl_module):
-        self.val_progress_bar.close()
-
-    def on_validation_batch_end(self, trainer, pl_module, outputs, batch, batch_idx, dataloader_idx):
-        if self._should_update(self.val_batch_idx, convert_inf(self.total_val_batches)):
-            self._update_bar(self.val_progress_bar)
-
-    def on_test_start(self, trainer, pl_module):
-        self.test_progress_bar = self.init_test_tqdm()
-        self.test_progress_bar.set_description(f'[test] {pl_module.args.benchmark} | fold{pl_module.args.fold} ')
-        reset(self.test_progress_bar, self.total_test_batches)
+    def get_progress_bar_dict(self):
+        # to stop to show the version number in the progress bar
+        items = super().get_progress_bar_dict()
+        items.pop("v_num", None)
+        return items
 
 
 class MeterCallback(Callback):
+    # TODO: this class should cotain non-side-effectivce functions like printing
+    # otherwise, move them to LightningModule
     """
     A class that initiates classificaiton and segmentation metrics
     """
@@ -70,10 +55,9 @@ class MeterCallback(Callback):
         utils.print_param_count(pl_module)
 
     def on_train_epoch_start(self, trainer, pl_module):
-        print(f'\n\n----- ep: {trainer.current_epoch:>3}-----')
         utils.fix_randseed(None)
         dataset = trainer.train_dataloader.dataset.datasets
-        pl_module.average_meter = AverageMeter(dataset, self.args.way)
+        pl_module.trn_average_meter = AverageMeter(dataset, self.args.way)
         pl_module.train_mode()
 
     def on_validation_epoch_start(self, trainer, pl_module):
@@ -84,7 +68,7 @@ class MeterCallback(Callback):
 
     def _shared_eval_epoch_start(self, dataset, pl_module):
         utils.fix_randseed(0)
-        pl_module.average_meter = AverageMeter(dataset, self.args.way)
+        pl_module.val_average_meter = AverageMeter(dataset, self.args.way)
         pl_module.eval()
 
 

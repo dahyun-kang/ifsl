@@ -8,7 +8,7 @@ from model.panet import PrototypeAlignmentNetwork
 from model.pfenet import PriorGuidedFeatureEnrichmentNetwork
 from model.hsnet import HypercorrSqueezeNetwork
 from data.dataset import FSCSDatasetModule
-from common.callbacks import MeterCallback, CustomProgressBar, CustomCheckpoint, OnlineLogger
+from common.callbacks import MeterCallback, CustomCheckpoint, OnlineLogger, TQDMProgressBar, CustomTQDMProgressBar
 
 
 def main(args):
@@ -25,14 +25,13 @@ def main(args):
 
     # Pytorch-lightning main trainer
     checkpoint_callback = CustomCheckpoint(args)
-    trainer = Trainer(accelerator='dp',  # DataParallel
-                      callbacks=[MeterCallback(args), CustomCheckpoint(args), CustomProgressBar()],
+    trainer = Trainer(strategy='dp',  # DataParallel
+                      callbacks=[MeterCallback(args), CustomCheckpoint(args), CustomTQDMProgressBar()],
                       gpus=torch.cuda.device_count(),
                       logger=False if args.nowandb or args.eval else OnlineLogger(args),
-                      progress_bar_refresh_rate=1,
                       max_epochs=args.niter,
                       num_sanity_val_steps=0,
-                      weights_summary=None,
+                      enable_model_summary=False,
                       resume_from_checkpoint=checkpoint_callback.lastmodelpath,
                       # profiler='advanced',  # this awesome profiler is easy to use
                       )

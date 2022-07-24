@@ -29,6 +29,10 @@ class iFSLModule(pl.LightningModule):
         pass
 
     def training_step(self, batch, batch_idx):
+        self.average_meter = self.trn_average_meter
+        return self.shared_step(batch, batch_idx, 'trn')
+
+    def shared_step(self, batch, batch_idx, split):
         """
         batch.keys()
         > dict_keys(['query_img', 'query_mask', 'query_name', 'query_ignore_idx', 'org_query_imsize', 'support_imgs', 'support_masks', 'support_names', 'support_ignore_idxs', 'class_id'])
@@ -50,7 +54,6 @@ class iFSLModule(pl.LightningModule):
         # FYI: K-shot is always fixed to 1 for training
         """
 
-        split = 'trn' if self.training else 'val'
         shared_masks = self.forward(batch)
         pred_cls, pred_seg, logit_seg = self.predict_cls_and_mask(shared_masks, batch)
 
@@ -67,20 +70,22 @@ class iFSLModule(pl.LightningModule):
         return loss
 
     def training_epoch_end(self, training_step_outputs):
-        self._shared_epoch_end(training_step_outputs)
+        self._shared_epoch_end(training_step_outputs, 'trn')
 
     def validation_step(self, batch, batch_idx):
         # model.eval() and torch.no_grad() are called automatically for validation
         # in pytorch_lightning
-        self.training_step(batch, batch_idx)
+        self.average_meter = self.val_average_meter
+        self.shared_step(batch, batch_idx, 'val')
 
     def validation_epoch_end(self, validation_step_outputs):
         # model.eval() and torch.no_grad() are called automatically for validation
         # in pytorch_lightning
-        self._shared_epoch_end(validation_step_outputs)
+        self._shared_epoch_end(validation_step_outputs, 'val')
 
-    def _shared_epoch_end(self, steps_outputs):
-        split = 'trn' if self.training else 'val'
+    def _shared_epoch_end(self, steps_outputs, split):
+        self.average_meter = self.trn_average_meter if split == 'trn' else self.val_average_meter
+
         miou = self.average_meter.compute_iou()
         er = self.average_meter.compute_cls_er()
         loss = self.average_meter.avg_seg_loss()
@@ -92,8 +97,9 @@ class iFSLModule(pl.LightningModule):
         for k in dict:
             self.log(k, dict[k], on_epoch=True, logger=True)
 
-        space = '\n\n' if split == 'val' else '\n'
-        print(f'{space}[{split}] ep: {self.current_epoch:>3}| {split}/loss: {loss:.3f} | {split}/miou: {miou:.3f} | {split}/er: {er:.3f}')
+        # Moved to common/callback.py due to the pytorch-lightning update
+        # space = '\n\n' if split == 'val' else '\n'
+        # self.print(f'{space}[{split}] ep: {self.current_epoch:>3}| {split}/loss: {loss:.3f} | {split}/miou: {miou:.3f} | {split}/er: {er:.3f}')
 
     def test_step(self, batch, batch_idx):
         pred_cls, pred_seg = self.predict_mask_nshot(batch, self.args.shot)
@@ -174,8 +180,4 @@ class iFSLModule(pl.LightningModule):
 
         return logit_mask
 
-    def get_progress_bar_dict(self):
-        # to stop to show the version number in the progress bar
-        items = super().get_progress_bar_dict()
-        items.pop("v_num", None)
-        return items
+
