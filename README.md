@@ -48,10 +48,10 @@ The package requirements can be installed via `environment.yml`, which includes
 * [`pytorch-lightning`](https://www.pytorchlightning.ai/)==1.3.8
 * [`einops`](https://einops.rocks/pytorch-examples.html)==0.3.0
 ```bash
-conda env create --name ifsl_pytorch1.7.0 --file environment.yml
+conda env create --name ifsl_pytorch1.7.0 --file environment.yml -p YOURCONDADIR/envs/ifsl_pytorch1.7.0
 conda activate ifsl_pytorch1.7.0
 ```
-Make sure you need to replace _YOURCONDAROOTDIR_ in the installation path with your own root dir
+Make sure to replace `YOURCONDADIR` in the installation path with your conda dir, e.g., `~/anaconda3`
 
 ## :books: Datasets
 * [PASCAL VOC 2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) and [SBD](http://home.bharathh.info/pubs/codes/SBD/download.html)
