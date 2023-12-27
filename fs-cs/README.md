@@ -27,7 +27,7 @@ The file structure should be as follows:
 ### Training with segmentation annotaiton (strong labels)
 ```bash
 python main.py --datapath YOUR_DATASET_DIR \
-               --method {panet, pfenet, hsnet, asnet} \
+               --method {panet, pfenet, hsnet, asnethm, asnet} \
                --benchmark {pascal, coco} \
                --logpath YOUR_DIR_TO_SAVE_CKPT \
                --way 1 \
@@ -45,9 +45,9 @@ Append these two arguments: `--weak --lr 1e-4`.
 
 ```bash
 python main.py --datapath YOUR_DATASET_DIR \
-               --method {panet, pfenet, hsnet, asnet} \
+               --method {panet, pfenet, hsnet, asnethm, asnet} \
                --benchmark {pascal, coco} \
-               --logpath {panet, pfenet, hsnet, asnet} \
+               --logpath {panet, pfenet, hsnet, asnethm, asnet} \
                --way {1, 2, 3, 4, 5} \
                --shot {1, 5} \
                --bsz 1 \
@@ -130,6 +130,17 @@ python main.py --datapath YOUR_DATASET_DIR \
     <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EbGtbcjQRIlBtUkjNnpmFlABkOyOMBEYfRhQn4vHQ4x-Yg?e=kWVyI5">link</a></td>
   </tr>
   <tr>
+    <td>HM</td>
+    <td align="center">83.0</td>
+    <td align="center">51.7</td>
+    <td align="center">59.3</td>
+    <td align="center">46.5</td>
+    <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/ERcjoZW6i4BEqGRsoroXKMoBkHzUstmz1y2oYqQCkY7foA?e=xUMOWv">link</a></td>
+    <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/ESjOUETWrAVLtJTpnHb3WDgBPNgwEhFPrfje2L_3FwVOZA?e=CdN4qO">link</a></td>
+    <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EfoC1TR6i6tOieQ8AYo67h4BnP2OFYMRQLOQ4vf1WaLjrQ?e=clrAiE">link</a></td>
+    <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/Ec-uxwM_zeBHoN_BVN1Cx6EBsEDsmULBDW3PDjJ_w1NHNQ?e=SmZcYj">link</a></td>
+  </tr>    
+  <tr>
     <td><strong>ASNet</td>
     <td align="center"><strong>84.9</td>
     <td align="center"><strong>52.3</td>
@@ -201,11 +212,22 @@ python main.py --datapath YOUR_DATASET_DIR \
     <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EYrdn8Y0Rr1NhsPzPxmXyBUBWQEB6cUGr55hV2Sw4_qkAQ?e=izidwn">link</a></td>
   </tr>
   <tr>
+    <td>HM</td>
+    <td align="center">57.1</td>
+    <td align="center"><strong>31.8</td>
+    <td align="center">78.6</td>
+    <td align="center"><strong>36.2</td>
+    <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EaKP3l7rm9VOvnHIpgwRmdABLRleM1fLZxC44cycdnLX9A?e=HfajaU">link</a></td>
+    <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EVZuvJk-EctBlvvab_QcSEMBRs5G3OdjT3xg_DqYFUrcjQ?e=TiIyN5">link</a></td>
+    <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EXasCI21r2hHsroPVbwfR5wBvq9uQK0HhTmheMfgj4Fc0A?e=KYSKBJ">link</a></td>
+    <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EczBEyk_ChBMqUfFN-uytZcBBfEySOLr7NDetFG6C-RXEw?e=pA8jDJ">link</a></td>
+  </tr>  
+  <tr>
     <td><strong>ASNet</td>
     <td align="center"><strong>78.6</td>
-    <td align="center"><strong>35.8</td>
+    <td align="center">35.8</td>
     <td align="center"><strong>63.1</td>
-    <td align="center"><strong>31.6</td>
+    <td align="center">31.6</td>
     <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EZFaxVbn5oNErJpqI7NUqqIBvC6awz6PL8rzvZ26OGbi3A?e=mla59Y">link</a></td>
     <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/ERQl3U8iQyZHq8z8es1a7ZMBUB_L82MA4LYCHZnEF9Gyog?e=dVsyYe">link</a></td>
     <td align="center"><a href="https://postechackr-my.sharepoint.com/:u:/g/personal/kjdr86_postech_ac_kr/EXwVcWGBrsJGofB5ifpenIgBJDsYY2tT84A32PF-_jYCCw?e=5e3eiL">link</a></td>
